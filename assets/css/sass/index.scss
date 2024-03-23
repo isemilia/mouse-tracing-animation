@@ -1,0 +1,11 @@
+@import './components/tracer';
+
+body, html {
+    height: 100%;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    background-color: #000;
+}
