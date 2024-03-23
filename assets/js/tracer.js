@@ -1,7 +1,8 @@
 const makeStarSvg = ({ color = '#FFFFFF', size = 26 }) => `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m21.137 11.519-2.726-.779a7.453 7.453 0 0 1-5.151-5.151l-.779-2.726a.52.52 0 0 0-.962 0l-.779 2.726a7.453 7.453 0 0 1-5.151 5.151l-2.726.779a.5.5 0 0 0 0 .962l2.726.779a7.453 7.453 0 0 1 5.151 5.151l.779 2.726a.5.5 0 0 0 .962 0l.779-2.726a7.453 7.453 0 0 1 5.151-5.151l2.726-.779a.5.5 0 0 0 0-.962z" fill="${color}" opacity="1" data-original="#000000" class=""></path></g></svg>`;
 
 const colors = ['#AC75FF', '#FF67D5', '#FF9F74', '#F9F871'];
-const animations = ['fall-1', 'fall-2', 'fall-3', 'fall-2'];
+const fallAnimations = ['fall-1', 'fall-2', 'fall-3', 'fall-2'];
+const shineAnimations = ['shine-1', 'shine-2'];
 
 const useCreateStar = (rootSelector) => {
     const rootElement = document.querySelector(rootSelector);
@@ -20,9 +21,9 @@ const useCreateStar = (rootSelector) => {
         const spawnDistanceThreshold = 70;
 
         if (distanceMoved >= spawnDistanceThreshold) {
-            const randomNum = Math.floor(Math.random() * 4);
+            const randomNum = Math.floor(Math.random() * colors.length);
             const randomColor = colors[randomNum];
-            const randomAnimation = animations[randomNum];
+            const randomAnimation = fallAnimations[randomNum];
 
             const particle = document.createElement('div');
             particle.className = 'particle';
@@ -67,7 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const createStar = useCreateStar('.root');
     const createGlow = useCreateGlow('.root');
 
-    const dotCount = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+    const dotCount = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
 
     for (let i = 0; i < dotCount; i++) {
         const dot = document.createElement('div');
@@ -77,17 +78,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const randomX = Math.floor(Math.random() * width);
         const randomY = Math.floor(Math.random() * height);
-        const randomSize = Math.floor((Math.random() * 10 - 5 + 1) + 5);
+        const randomSize = Math.floor((Math.random() * 4)) + 1;
 
         dot.className = 'dot';
-        dot.innerHTML = makeStarSvg({ size: randomSize })
+        // dot.innerHTML = makeStarSvg({ size: randomSize })
+        dot.innerHTML = '<span></span>'
 
-        // const adjustedY = randomY > height / 2 ? randomY - randomSize : randomY;
-        // const adjustedX = randomX > width / 2 ? randomX - randomSize : randomX;
+        dot.style.width = randomSize + 'px';
+        dot.style.height = randomSize + 'px';
 
         dot.style.left = randomX + 'px';
         dot.style.top = randomY + 'px';
-        dot.style.opacity = Math.random().toFixed(1);
+
+        const randomDelay = Math.floor(Math.random() * 10);
+        const randomAnimation = shineAnimations[Math.floor(Math.random() * 2)]
+        dot.style.animation = `${randomAnimation} 1.5s ease ${randomDelay}s infinite alternate`;
 
         root.appendChild(dot);
     }
