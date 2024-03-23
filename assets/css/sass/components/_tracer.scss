@@ -5,9 +5,16 @@
     background-color: #222222;
 }
 
-.particle {
+.particle, .glow {
     position: absolute;
     pointer-events: none;
+}
+
+.glow {
+    width: 1px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0);
+    box-shadow: 0px 0px 20px 10px rgba(222, 91, 255, 0.1);
 }
 
 @keyframes fall-1 {

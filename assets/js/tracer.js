@@ -1,4 +1,4 @@
-const makeStarSvg = (color) => `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m21.137 11.519-2.726-.779a7.453 7.453 0 0 1-5.151-5.151l-.779-2.726a.52.52 0 0 0-.962 0l-.779 2.726a7.453 7.453 0 0 1-5.151 5.151l-2.726.779a.5.5 0 0 0 0 .962l2.726.779a7.453 7.453 0 0 1 5.151 5.151l.779 2.726a.5.5 0 0 0 .962 0l.779-2.726a7.453 7.453 0 0 1 5.151-5.151l2.726-.779a.5.5 0 0 0 0-.962z" fill="${color ?? '#FFFFFF'}" opacity="1" data-original="#000000" class=""></path></g></svg>`;
+const makeStarSvg = (color) => `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m21.137 11.519-2.726-.779a7.453 7.453 0 0 1-5.151-5.151l-.779-2.726a.52.52 0 0 0-.962 0l-.779 2.726a7.453 7.453 0 0 1-5.151 5.151l-2.726.779a.5.5 0 0 0 0 .962l2.726.779a7.453 7.453 0 0 1 5.151 5.151l.779 2.726a.5.5 0 0 0 .962 0l.779-2.726a7.453 7.453 0 0 1 5.151-5.151l2.726-.779a.5.5 0 0 0 0-.962z" fill="${color ?? '#FFFFFF'}" opacity="1" data-original="#000000" class=""></path></g></svg>`;
 
 const colors = ['#AC75FF', '#FF67D5', '#FF9F74', '#F9F871'];
 const animations = ['fall-1', 'fall-2', 'fall-3', 'fall-2'];
@@ -45,11 +45,31 @@ const useCreateStar = (rootSelector) => {
     }
 }
 
+const useCreateGlow = (rootSelector) => {
+    const rootElement = document.querySelector(rootSelector);
+
+    return (e) => {
+        const glow = document.createElement('div');
+        glow.className = 'glow';
+        glow.style.top = e.offsetY + 'px';
+        glow.style.left = e.offsetX + 'px';
+        rootElement.appendChild(glow);
+
+        setTimeout(() => {
+            rootElement.removeChild(glow);
+        }, 100);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('.root');
+
     const createStar = useCreateStar('.root');
+    const createGlow = useCreateGlow('.root');
 
     root.addEventListener('mousemove', (e) => {
+
         createStar(e);
+        createGlow(e);
     });
 });
