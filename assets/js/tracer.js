@@ -3,16 +3,13 @@ const makeStarSvg = (color) => `<svg xmlns="http://www.w3.org/2000/svg" version=
 const colors = ['#AC75FF', '#FF67D5', '#FF9F74', '#F9F871'];
 const animations = ['fall-1', 'fall-2', 'fall-3', 'fall-2'];
 
-// const createStar = () => {
+const useCreateStar = (rootSelector) => {
+    const rootElement = document.querySelector(rootSelector);
 
-// }
-
-window.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector('.root');
     let prevX = 0;
     let prevY = 0;
 
-    root.addEventListener('mousemove', (e) => {
+    return (e) => {
         const currX = e.offsetX;
         const currY = e.offsetY;
 
@@ -36,14 +33,23 @@ window.addEventListener('DOMContentLoaded', () => {
             particle.style.top = e.offsetY + 'px';
             particle.style.left = e.offsetX + 'px';
 
-            root.appendChild(particle);
+            rootElement.appendChild(particle);
 
             setTimeout(() => {
-                root.removeChild(particle);
+                rootElement.removeChild(particle);
             }, 1500);
 
             prevX = currX;
             prevY = currY;
         }
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const root = document.querySelector('.root');
+    const createStar = useCreateStar('.root');
+
+    root.addEventListener('mousemove', (e) => {
+        createStar(e);
     });
 });
