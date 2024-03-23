@@ -67,14 +67,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const createStar = useCreateStar('.root');
     const createGlow = useCreateGlow('.root');
 
-    console.log(root.scrollWidth, root.scrollHeight);
     const dotCount = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
 
     for (let i = 0; i < dotCount; i++) {
         const dot = document.createElement('div');
 
-        const width = root.scrollWidth;
-        const height = root.scrollHeight;
+        const width = Math.floor(root.offsetWidth);
+        const height = Math.floor(root.offsetHeight);
 
         const randomX = Math.floor(Math.random() * width);
         const randomY = Math.floor(Math.random() * height);
@@ -83,8 +82,11 @@ window.addEventListener('DOMContentLoaded', () => {
         dot.className = 'dot';
         dot.innerHTML = makeStarSvg({ size: randomSize })
 
-        dot.style.top = randomY + 'px';
+        // const adjustedY = randomY > height / 2 ? randomY - randomSize : randomY;
+        // const adjustedX = randomX > width / 2 ? randomX - randomSize : randomX;
+
         dot.style.left = randomX + 'px';
+        dot.style.top = randomY + 'px';
         dot.style.opacity = Math.random().toFixed(1);
 
         root.appendChild(dot);
