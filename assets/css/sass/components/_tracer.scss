@@ -2,19 +2,23 @@
     position: relative;
     width: 50vw;
     height: 400px;
-    background-color: #222222;
+    background-color: #1b1b1b;
 }
 
-.particle, .glow {
+.particle, .glow, .dot {
     position: absolute;
     pointer-events: none;
 }
 
-.glow {
+.glow {  
     width: 1px;
     height: 1px;
     background: rgba(255, 255, 255, 0);
     box-shadow: 0px 0px 20px 10px rgba(222, 91, 255, 0.1);
+}
+
+.dot svg {
+    opacity: .6
 }
 
 @keyframes fall-1 {
