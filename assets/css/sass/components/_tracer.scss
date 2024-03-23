@@ -3,9 +3,12 @@
     width: 50vw;
     height: 400px;
     background: linear-gradient(to bottom, #120936, transparent);
-    // background-color: #161616;
     overflow-x: clip;
     overflow-y: visible;
+    @media (max-width: 1023px) {
+        width: 90vw;
+        height: 90vh;
+    }
 }
 
 .particle, .glow, .dot {
