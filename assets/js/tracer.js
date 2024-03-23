@@ -62,40 +62,48 @@ const useCreateGlow = (rootSelector) => {
     }
 }
 
+const useCreateDots = (rootSelector) => {
+    const root = document.querySelector(rootSelector);
+
+    return () => {
+        const dotCount = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+
+        for (let i = 0; i < dotCount; i++) {
+            const dot = document.createElement('div');
+
+            const width = Math.floor(root.offsetWidth);
+            const height = Math.floor(root.offsetHeight);
+
+            const randomX = Math.floor(Math.random() * width);
+            const randomY = Math.floor(Math.random() * height);
+            const randomSize = Math.floor((Math.random() * 3)) + 1;
+
+            dot.className = 'dot';
+            dot.innerHTML = '<span></span>'
+
+            dot.style.width = randomSize + 'px';
+            dot.style.height = randomSize + 'px';
+
+            dot.style.left = randomX + 'px';
+            dot.style.top = randomY + 'px';
+
+            const randomDelay = Math.floor(Math.random() * 10);
+            const randomAnimation = shineAnimations[Math.floor(Math.random() * 2)]
+            dot.style.animation = `${randomAnimation} 1.5s ease ${randomDelay}s infinite alternate`;
+
+            root.appendChild(dot);
+        }
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector('.root');
 
     const createStar = useCreateStar('.root');
     const createGlow = useCreateGlow('.root');
+    const createDots = useCreateDots('.root');
 
-    const dotCount = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
-
-    for (let i = 0; i < dotCount; i++) {
-        const dot = document.createElement('div');
-
-        const width = Math.floor(root.offsetWidth);
-        const height = Math.floor(root.offsetHeight);
-
-        const randomX = Math.floor(Math.random() * width);
-        const randomY = Math.floor(Math.random() * height);
-        const randomSize = Math.floor((Math.random() * 3)) + 1;
-
-        dot.className = 'dot';
-        dot.innerHTML = '<span></span>'
-
-        dot.style.width = randomSize + 'px';
-        dot.style.height = randomSize + 'px';
-
-        dot.style.left = randomX + 'px';
-        dot.style.top = randomY + 'px';
-
-        const randomDelay = Math.floor(Math.random() * 10);
-        const randomAnimation = shineAnimations[Math.floor(Math.random() * 2)]
-        dot.style.animation = `${randomAnimation} 1.5s ease ${randomDelay}s infinite alternate`;
-
-        root.appendChild(dot);
-    }
-
+    createDots();
 
     root.addEventListener('mousemove', (e) => {
         createStar(e);
