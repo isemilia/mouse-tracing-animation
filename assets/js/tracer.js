@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const randomX = Math.floor(Math.random() * width);
         const randomY = Math.floor(Math.random() * height);
-        const randomSize = Math.floor((Math.random() * 4)) + 1;
+        const randomSize = Math.floor((Math.random() * 3)) + 1;
 
         dot.className = 'dot';
         // dot.innerHTML = makeStarSvg({ size: randomSize })
